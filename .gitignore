@@ -1,0 +1,15 @@
+api.mydomain.com/build
+*/.idea
+api.mydomain.com/.gradle
+*/*.iml
+*/*.ipr
+*/*.iws
+api.mydomain.com/bin
+*/.settings/
+api.mydomain.com/out/
+api.mydomain.com/.gradletasknamecache
+app.mydomain.com/node_modules
+*/dist
+*/.tmp
+app.mydomain.com/.sass-cache
+app.mydomain.com/bower_components
