@@ -1,0 +1,15 @@
+<md-toolbar ng-cloak class="md-whiteframe-z2 md-primary">
+    <div class="md-toolbar-tools">
+        <md-button class="md-icon-button" ng-click="site.toggleSidenav()" hide-gt-lg aria-label=”ShowSideNav”>
+            <md-icon class="md-avatar-icon" md-svg-icon="navigation:ic_menu_24px" aria-label="Menu"></md-icon>
+        </md-button>
+        <h3>Reports</h3>
+    </div>
+</md-toolbar>
+<md-content >
+    <md-tabs md-selected="vm.selectedEntityTab" md-dynamic-height>
+        <md-tab label="Popular Study Buddies" ui-sref="reports.popularStudyBuddies">
+        </md-tab>
+    </md-tabs>
+    <ui-view></ui-view>
+</md-content>

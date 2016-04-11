@@ -1,20 +1,16 @@
 (function () {
     'use strict';
 
-    angular.module('app').controller('MainCtrl', MainCtrl);
+    angular.module('app').controller('DepartmentsController', DepartmentsController);
 
-    MainCtrl.$inject = [];
+    DepartmentsController.$inject = ['departments'];
 
-    function MainCtrl() {
+    function DepartmentsController(departments) {
 
         var vm = this;
 
-        vm.awesomeThings = [
-            'HTML5 Boilerplate',
-            'AngularJS',
-            'Karma'
-        ];
-
+        vm.departments = departments;
+        
         vm.init = init;
 
         vm.init();

@@ -1,19 +1,14 @@
 (function () {
     'use strict';
 
-    angular.module('app').controller('MainCtrl', MainCtrl);
+    angular.module('app').controller('EntitiesController', EntitiesController);
 
-    MainCtrl.$inject = [];
+    EntitiesController.$inject = ['$scope'];
 
-    function MainCtrl() {
+    function EntitiesController($scope) {
 
         var vm = this;
-
-        vm.awesomeThings = [
-            'HTML5 Boilerplate',
-            'AngularJS',
-            'Karma'
-        ];
+        vm.selectedEntityTab = null;
 
         vm.init = init;
 
@@ -24,6 +19,11 @@
         // -------------------------------------------------------------------------------------------------------------
 
         function init() {
+            $scope.$on('$stateChangeSuccess', function(event, toState) {
+                if (toState.data) {
+                    vm.selectedEntityTab = toState.data.selectedEntityTab;
+                }
+            });
         }
     }
 })();

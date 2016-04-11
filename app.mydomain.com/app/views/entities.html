@@ -1,0 +1,19 @@
+<md-toolbar ng-cloak class="md-whiteframe-z2 md-primary">
+    <div class="md-toolbar-tools">
+        <md-button class="md-icon-button" ng-click="site.toggleSidenav()" hide-gt-lg aria-label=”ShowSideNav”>
+            <md-icon class="md-avatar-icon" md-svg-icon="navigation:ic_menu_24px" aria-label="Menu"></md-icon>
+        </md-button>
+        <h3>Entities</h3>
+    </div>
+</md-toolbar>
+<md-content >
+    <md-tabs md-selected="vm.selectedEntityTab" md-dynamic-height>
+        <md-tab label="Departments" ui-sref="entities.departments">
+        </md-tab>
+        <md-tab label="Teachers" ui-sref="entities.teachers">
+        </md-tab>
+        <md-tab label="Students" ui-sref="entities.students">
+        </md-tab>
+    </md-tabs>
+    <ui-view></ui-view>
+</md-content>
