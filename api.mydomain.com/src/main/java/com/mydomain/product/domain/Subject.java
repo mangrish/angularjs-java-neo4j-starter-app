@@ -46,4 +46,18 @@ public class Subject
     }
 
 
+    public String getName()
+    {
+        return name;
+    }
+
+    public Set<Teacher> getTeachers()
+    {
+        return teachers;
+    }
+
+    public Long getId()
+    {
+        return id;
+    }
 }

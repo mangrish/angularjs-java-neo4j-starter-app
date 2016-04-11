@@ -44,4 +44,18 @@ public class Teacher
         this.name = name;
     }
 
+    public String getName()
+    {
+        return name;
+    }
+
+    public Set<Subject> getSubjects()
+    {
+        return subjects;
+    }
+
+    public Long getId()
+    {
+        return id;
+    }
 }
