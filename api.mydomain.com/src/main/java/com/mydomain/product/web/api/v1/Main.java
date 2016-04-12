@@ -1,6 +1,7 @@
 package com.mydomain.product.web.api.v1;
 
 
+import com.google.inject.persist.PersistFilter;
 import com.google.inject.servlet.GuiceFilter;
 import com.mydomain.product.web.api.v1.config.JerseyGuiceServletContextListener;
 import com.mydomain.product.web.api.v1.config.JerseyResourceConfig;
@@ -41,9 +42,6 @@ public class Main
         HttpServer httpServer = GrizzlyHttpServerFactory.createHttpServer(baseUri, false);
 
         WebappContext webappContext = new WebappContext("api.domain.com", "");
-
-        webappContext.addFilter(GuiceFilter.class.getName(), GuiceFilter.class)
-                .addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), DEFAULT_URL_PATTERN);
 
         webappContext.addListener(JerseyGuiceServletContextListener.class);
 

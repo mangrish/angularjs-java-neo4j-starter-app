@@ -1,6 +1,6 @@
 package com.mydomain.product.domain;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 
@@ -31,7 +31,7 @@ public class Subject
     @Relationship(type = "TAUGHT_BY")
     private Set<Teacher> teachers;
 
-    @Relationship(type = "SUBJECT_TAUGHT", direction = "INCOMING")
+    @Relationship(type = "SUBJECT_TAUGHT", direction = Relationship.INCOMING)
     private Set<Course> courses;
 
     public Subject()

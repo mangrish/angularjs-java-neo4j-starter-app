@@ -1,5 +1,7 @@
 package com.mydomain.product.web.api.v1.resources;
 
+import com.mydomain.product.web.api.v1.resources.views.DepartmentDetailView;
+
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -12,6 +14,7 @@ public class Department
 
     public String name;
 
+    @DepartmentDetailView
     public Set<Subject> subjects;
 
     public Department()

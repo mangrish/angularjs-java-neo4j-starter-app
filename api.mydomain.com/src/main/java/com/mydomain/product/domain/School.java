@@ -1,6 +1,6 @@
 package com.mydomain.product.domain;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 
@@ -48,5 +48,15 @@ public class School
     public static Iterable<School> findAll()
     {
         return schoolRepository.findAll();
+    }
+
+    public Long getId()
+    {
+        return id;
+    }
+
+    public String getName()
+    {
+        return name;
     }
 }

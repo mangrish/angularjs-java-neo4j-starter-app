@@ -1,12 +1,12 @@
 package io.innerloop.guice.perist.neo4j;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 import com.google.inject.persist.Transactional;
 import com.google.inject.persist.UnitOfWork;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.aopalliance.intercept.MethodInvocation;
 import org.neo4j.ogm.session.Session;
-import org.neo4j.ogm.session.transaction.Transaction;
+import org.neo4j.ogm.transaction.Transaction;
 
 import java.lang.reflect.Method;
 

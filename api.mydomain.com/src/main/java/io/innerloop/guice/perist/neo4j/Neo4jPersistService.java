@@ -1,44 +1,44 @@
 package io.innerloop.guice.perist.neo4j;
 
-import com.google.inject.Inject;
 import com.google.inject.Provider;
-import com.google.inject.name.Named;
+import com.google.inject.Singleton;
 import com.google.inject.persist.PersistService;
 import com.google.inject.persist.UnitOfWork;
+import org.neo4j.ogm.authentication.UsernamePasswordCredentials;
+import org.neo4j.ogm.config.Configuration;
+import org.neo4j.ogm.service.Components;
 import org.neo4j.ogm.session.Session;
 import org.neo4j.ogm.session.SessionFactory;
+
+import javax.inject.Inject;
+import java.util.Properties;
 
 /**
  * Created by markangrish on 11/04/2016.
  */
+@Singleton
 class Neo4jPersistService implements Provider<Session>, UnitOfWork, PersistService
 {
-    private String url;
-
-    private String username;
-
-    private String password;
-
     private ThreadLocal<Session> sessions;
 
     private SessionFactory sessionFactory;
 
-    Neo4jPersistService()
+    private Neo4jPersistService()
     {
         sessions = new ThreadLocal<>();
     }
 
     @Inject
-    Neo4jPersistService(@Named("neo4j.ogm.url") String url,
-                        @Named("neo4j.ogm.username") String username,
-                        @Named("neo4j.ogm.password") String password,
-                        @Named("neo4j.ogm.packages") String[] packages)
+    Neo4jPersistService(@Neo4j String[] persistencePackages, @Neo4j Properties persistenceProperties)
     {
         this();
-        this.url = url;
-        this.username = username;
-        this.password = password;
-        this.sessionFactory = new SessionFactory(packages);
+        Configuration configuration = Components.configuration();
+        configuration.driverConfiguration()
+                .setDriverClassName(persistenceProperties.getProperty("neo4j.ogm.driver"))
+                .setURI(persistenceProperties.getProperty("neo4j.ogm.url"))
+                .setCredentials(new UsernamePasswordCredentials(persistenceProperties.getProperty("neo4j.ogm.username"),
+                                                                persistenceProperties.getProperty("neo4j.ogm.password")));
+        this.sessionFactory = new SessionFactory(persistencePackages);
     }
 
     @Override
@@ -88,7 +88,7 @@ class Neo4jPersistService implements Provider<Session>, UnitOfWork, PersistServi
                                             " without a balancing call to end() in between.");
         }
 
-        sessions.set(sessionFactory.openSession(url, username, password));
+        sessions.set(sessionFactory.openSession());
     }
 
     @Override

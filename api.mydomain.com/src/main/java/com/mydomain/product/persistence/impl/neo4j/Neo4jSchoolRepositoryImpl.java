@@ -1,5 +1,6 @@
 package com.mydomain.product.persistence.impl.neo4j;
 
+import com.mydomain.product.domain.Department;
 import com.mydomain.product.domain.School;
 import com.mydomain.product.domain.SchoolRepository;
 
@@ -8,4 +9,8 @@ import com.mydomain.product.domain.SchoolRepository;
  */
 public class Neo4jSchoolRepositoryImpl extends Neo4jGenericRepositoryImpl<School> implements SchoolRepository
 {
+    Neo4jSchoolRepositoryImpl()
+    {
+        super(School.class);
+    }
 }

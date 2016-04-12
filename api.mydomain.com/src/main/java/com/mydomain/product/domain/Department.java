@@ -1,6 +1,6 @@
 package com.mydomain.product.domain;
 
-import com.google.inject.Inject;
+import javax.inject.Inject;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 
@@ -19,6 +19,11 @@ public class Department
     public static Iterable<Department> findAll()
     {
         return departmentRepository.findAll();
+    }
+
+    public static Department findById(Long id)
+    {
+        return departmentRepository.findById(id);
     }
 
     private Long id;
@@ -57,6 +62,7 @@ public class Department
     {
         return id;
     }
+
 }
 
 

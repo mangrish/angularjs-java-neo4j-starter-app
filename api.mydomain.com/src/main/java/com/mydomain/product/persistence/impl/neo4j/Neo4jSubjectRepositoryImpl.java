@@ -8,4 +8,8 @@ import com.mydomain.product.domain.SubjectRepository;
  */
 public class Neo4jSubjectRepositoryImpl extends Neo4jGenericRepositoryImpl<Subject> implements SubjectRepository
 {
+    Neo4jSubjectRepositoryImpl()
+    {
+        super(Subject.class);
+    }
 }

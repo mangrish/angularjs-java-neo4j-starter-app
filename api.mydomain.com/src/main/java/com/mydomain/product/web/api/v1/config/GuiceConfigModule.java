@@ -25,20 +25,18 @@ import com.mydomain.product.persistence.impl.neo4j.Neo4jSubjectRepositoryImpl;
 import com.mydomain.product.persistence.impl.neo4j.Neo4jTeacherRepositoryImpl;
 import io.innerloop.guice.perist.neo4j.Neo4jPersistModule;
 
+import java.util.Properties;
+
 
 /**
  * Created by markangrish on 10/04/2016.
  */
-public class GuiceConfigModule extends AbstractModule
+class GuiceConfigModule extends AbstractModule
 {
     @Override
     protected void configure()
     {
-        String url = System.getProperty("neo4j.ogm.url");
-        String username = System.getProperty("neo4j.ogm.username");
-        String password = System.getProperty("neo4j.ogm.password");
-
-        install(new Neo4jPersistModule( url, username, password, "com.mydomain.product.domain"));
+        install(new Neo4jPersistModule("com.mydomain.product.domain").properties(getPersistenceProperties()));
 
         bind(CourseRepository.class).to(Neo4jCourseRepositoryImpl.class).in(Singleton.class);
         bind(DepartmentRepository.class).to(Neo4jDepartmentRepositoryImpl.class).in(Singleton.class);
@@ -55,5 +53,21 @@ public class GuiceConfigModule extends AbstractModule
                                StudyBuddy.class,
                                Subject.class,
                                Teacher.class);
+    }
+
+    private static Properties getPersistenceProperties()
+    {
+        String url = System.getProperty("neo4j.ogm.url");
+        String username = System.getProperty("neo4j.ogm.username");
+        String password = System.getProperty("neo4j.ogm.password");
+        String driver = System.getProperty("neo4j.ogm.driver");
+
+        Properties properties = new Properties();
+        properties.put("neo4j.ogm.driver", driver);
+        properties.put("neo4j.ogm.url", url);
+        properties.put("neo4j.ogm.username", username);
+        properties.put("neo4j.ogm.password", password);
+
+        return properties;
     }
 }

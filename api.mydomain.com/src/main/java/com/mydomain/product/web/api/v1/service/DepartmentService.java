@@ -2,12 +2,15 @@ package com.mydomain.product.web.api.v1.service;
 
 import com.google.inject.persist.Transactional;
 import com.mydomain.product.domain.Department;
+import com.mydomain.product.web.api.v1.resources.views.DepartmentDetailView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.NotFoundException;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
@@ -36,5 +39,22 @@ public class DepartmentService
         return StreamSupport.stream(departments.spliterator(), false)
                        .map(com.mydomain.product.web.api.v1.resources.Department::new)
                        .collect(Collectors.toList());
+    }
+
+    @GET
+    @Path("{id}")
+    @DepartmentDetailView
+    public com.mydomain.product.web.api.v1.resources.Department find(@PathParam("id") Long id)
+    {
+        LOG.trace("Retrieving Department with ID: [{}]", id);
+
+        Department department = Department.findById(id);
+
+        if (department == null)
+        {
+            throw new NotFoundException("Department not found.");
+        }
+
+        return new com.mydomain.product.web.api.v1.resources.Department(department);
     }
 }

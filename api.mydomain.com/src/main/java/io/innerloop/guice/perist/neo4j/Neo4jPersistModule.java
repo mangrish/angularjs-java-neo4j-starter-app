@@ -1,43 +1,44 @@
 package io.innerloop.guice.perist.neo4j;
 
 import com.google.inject.Singleton;
-import com.google.inject.name.Names;
 import com.google.inject.persist.PersistModule;
 import com.google.inject.persist.PersistService;
 import com.google.inject.persist.UnitOfWork;
+import com.google.inject.util.Providers;
 import org.aopalliance.intercept.MethodInterceptor;
 import org.neo4j.ogm.session.Session;
+
+import java.util.Properties;
 
 /**
  * Created by markangrish on 11/04/2016.
  */
 public class Neo4jPersistModule extends PersistModule
 {
-    private final String url;
-
-    private final String username;
-
-    private final String password;
-
     private final String[] packages;
 
     private MethodInterceptor transactionInterceptor;
 
-    public Neo4jPersistModule(String url, String username, String password, String... packages)
+    private Properties properties;
+
+    public Neo4jPersistModule(String... packages)
     {
-        this.url = url;
-        this.username = username;
-        this.password = password;
         this.packages = packages;
     }
 
     @Override
     protected void configurePersistence()
     {
-        bind(String[].class).annotatedWith(Names.named("neo4j.ogm.packages")).toInstance(packages);
-        bind(String.class).annotatedWith(Names.named("neo4j.ogm.url")).toInstance(url);
-        bind(String.class).annotatedWith(Names.named("neo4j.ogm.username")).toInstance(username);
-        bind(String.class).annotatedWith(Names.named("neo4j.ogm.password")).toInstance(password);
+        bind(String[].class).annotatedWith(Neo4j.class).toInstance(packages);
+
+        if (null != properties)
+        {
+            bind(Properties.class).annotatedWith(Neo4j.class).toInstance(properties);
+        }
+        else
+        {
+            bind(Properties.class).annotatedWith(Neo4j.class).toProvider(Providers.of(null));
+        }
 
         bind(Neo4jPersistService.class).in(Singleton.class);
         bind(PersistService.class).to(Neo4jPersistService.class);
@@ -52,5 +53,11 @@ public class Neo4jPersistModule extends PersistModule
     protected MethodInterceptor getTransactionInterceptor()
     {
         return this.transactionInterceptor;
+    }
+
+    public Neo4jPersistModule properties(Properties properties)
+    {
+        this.properties = properties;
+        return this;
     }
 }

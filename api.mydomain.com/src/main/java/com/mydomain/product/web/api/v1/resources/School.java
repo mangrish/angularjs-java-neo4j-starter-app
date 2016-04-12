@@ -5,8 +5,17 @@ package com.mydomain.product.web.api.v1.resources;
  */
 public class School
 {
+    public Long id;
+
+    public String name;
+
+    public School()
+    {
+    }
+
     public School(com.mydomain.product.domain.School school)
     {
-
+        this.id = school.getId();
+        this.name = school.getName();
     }
 }

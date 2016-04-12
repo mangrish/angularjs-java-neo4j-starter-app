@@ -8,4 +8,8 @@ import com.mydomain.product.domain.CourseRepository;
  */
 public class Neo4jCourseRepositoryImpl extends Neo4jGenericRepositoryImpl<Course> implements CourseRepository
 {
+    Neo4jCourseRepositoryImpl()
+    {
+        super(Course.class);
+    }
 }
