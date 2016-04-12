@@ -1,1 +1,8 @@
-teachers
+<md-card>
+    <md-list>
+        <md-list-item ng-repeat="teacher in vm.teachers" ui-sref="entities.teachers.edit({id:teacher.id})">
+            <span>{{teacher.name}}</span>
+        </md-list-item>
+    </md-list>
+</md-card>
+

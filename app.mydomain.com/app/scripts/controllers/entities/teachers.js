@@ -3,12 +3,14 @@
 
     angular.module('app').controller('TeachersController', TeachersController);
 
-    TeachersController.$inject = [];
+    TeachersController.$inject = ['teachers'];
 
-    function TeachersController() {
+    function TeachersController(teachers) {
 
         var vm = this;
 
+        vm.teachers = teachers;
+        
         vm.init = init;
 
         vm.init();

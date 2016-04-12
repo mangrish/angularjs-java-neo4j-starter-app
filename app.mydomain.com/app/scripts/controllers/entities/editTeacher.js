@@ -1,14 +1,15 @@
 (function () {
     'use strict';
 
-    angular.module('app').controller('StudentsController', StudentsController);
+    angular.module('app').controller('EditTeacherController', EditTeacherController);
 
-    StudentsController.$inject = ['students'];
+    EditTeacherController.$inject = ['teacher'];
 
-    function StudentsController(students) {
+    function EditTeacherController(teacher) {
 
         var vm = this;
-        vm.students = students;
+
+        vm.teacher = teacher;
 
         vm.init = init;
 

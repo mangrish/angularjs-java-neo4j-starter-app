@@ -15,7 +15,7 @@
             'ngAria',
             'ngCookies',
             'ngMessages',
-            'ngResource',
+            'restangular',
             'ui.router',
             'ui.router.default',
             'ngSanitize',
@@ -29,11 +29,11 @@
         })
         .run(runPage);
 
-    appConfig.$inject = ['$stateProvider', '$urlRouterProvider', '$locationProvider', 'config', '$mdIconProvider'];
+    appConfig.$inject = ['$stateProvider', '$urlRouterProvider', '$locationProvider', 'RestangularProvider', 'config'];
     runPage.$inject = ['$rootScope', 'EVENTS', '$mdToast'];
 
 
-    function appConfig($stateProvider, $urlRouterProvider, $locationProvider) {
+    function appConfig($stateProvider, $urlRouterProvider, $locationProvider, RestangularProvider, config) {
         $stateProvider
             .state('home', {
                 url: '/',
@@ -62,35 +62,107 @@
             })
             .state('entities.departments', {
                 url: '/departments',
-                templateUrl: 'views/entities/departments.html',
-                controller: 'DepartmentsController as vm',
                 data: {
                     'selectedEntityTab': 0
                 },
+                views: {
+                    "entities": {
+                        templateUrl: 'views/entities/departments.html',
+                        controller: 'DepartmentsController as vm'
+                    }
+                },
                 resolve: {
-                    departments:['DepartmentService', function (DepartmentService) {
-                        return DepartmentService.query();
+                    departments: ['DepartmentService', function (DepartmentService) {
+                        return DepartmentService.findAll();
+                    }]
+                }
+            })
+            .state('entities.departments.edit', {
+                url: '/:id',
+                views: {
+                    "entities": {
+                        templateUrl: 'views/entities/edit_department.html',
+                        controller: 'EditDepartmentController as vm'
+                    }
+                },
+                resolve: {
+                    department: ['DepartmentService', '$stateParams', function (DepartmentService, $stateParams) {
+                        return DepartmentService.find( $stateParams.id);
                     }]
                 }
             })
             .state('entities.teachers', {
                 url: '/teachers',
-                templateUrl: 'views/entities/teachers.html',
-                controller: 'TeachersController as vm',
                 data: {
                     'selectedEntityTab': 1
+                },
+                views: {
+                    "entities": {
+                        templateUrl: 'views/entities/teachers.html',
+                        controller: 'TeachersController as vm'
+                    }
+                },
+                resolve: {
+                    teachers: ['TeacherService', function (TeacherService) {
+                        return TeacherService.findAll();
+                    }]
+                }
+            })
+            .state('entities.teachers.edit', {
+                url: '/:id',
+                views: {
+                    "entities": {
+                        templateUrl: 'views/entities/edit_teacher.html',
+                        controller: 'EditTeacherController as vm'
+                    }
+                },
+                resolve: {
+                    teacher: ['TeacherService', '$stateParams', function (TeacherService, $stateParams) {
+                        return TeacherService.find( $stateParams.id);
+                    }]
                 }
             })
             .state('entities.students', {
                 url: '/students',
-                templateUrl: 'views/entities/students.html',
-                controller: 'StudentsController as vm',
                 data: {
                     'selectedEntityTab': 2
+                },
+                views: {
+                    "entities": {
+                        templateUrl: 'views/entities/students.html',
+                        controller: 'StudentsController as vm'
+                    }
+                },
+                resolve: {
+                    students: ['StudentService', function (StudentService) {
+                        return StudentService.findAll();
+                    }]
+                }
+            })
+            .state('entities.students.edit', {
+                url: '/:id',
+                views: {
+                    "entities": {
+                        templateUrl: 'views/entities/edit_student.html',
+                        controller: 'EditStudentController as vm'
+                    }
+                },
+                resolve: {
+                    student: ['StudentService', '$stateParams', function (StudentService, $stateParams) {
+                        return StudentService.find( $stateParams.id);
+                    }]
                 }
             });
 
         $urlRouterProvider.otherwise('/');
+
+        RestangularProvider.setBaseUrl(config.restApiUrl);
+        RestangularProvider.setRequestInterceptor(function (elem, operation) {
+            if (operation === "remove") {
+                return null;
+            }
+            return elem;
+        });
 
         $locationProvider.html5Mode(true);
     }

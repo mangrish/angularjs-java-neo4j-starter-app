@@ -1,5 +1,8 @@
-<md-list>
-    <md-list-item ng-repeat="department in vm.departments">
-        <span>{{department.name}}</span>
-    </md-list-item>
-</md-list>
+<md-card>
+        <md-list>
+            <md-list-item ng-repeat="department in vm.departments" ui-sref="entities.departments.edit({id:department.id})">
+                <span>{{department.name}}</span>
+            </md-list-item>
+        </md-list>
+</md-card>
+
