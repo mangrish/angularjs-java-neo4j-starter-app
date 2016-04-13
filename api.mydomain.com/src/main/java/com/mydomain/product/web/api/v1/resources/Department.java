@@ -27,4 +27,34 @@ public class Department
         this.name = department.getName();
         this.subjects = department.getSubjects().stream().map(Subject::new).collect(Collectors.toSet());
     }
+
+    public void setId(Long id)
+    {
+        this.id = id;
+    }
+
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+
+    public void setSubjects(Set<Subject> subjects)
+    {
+        this.subjects = subjects;
+    }
+
+    public Long getId()
+    {
+        return id;
+    }
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public Set<Subject> getSubjects()
+    {
+        return subjects;
+    }
 }

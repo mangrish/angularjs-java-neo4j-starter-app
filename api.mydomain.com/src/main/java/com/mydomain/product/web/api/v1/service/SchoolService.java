@@ -2,6 +2,7 @@ package com.mydomain.product.web.api.v1.service;
 
 import com.google.inject.persist.Transactional;
 import com.mydomain.product.domain.School;
+import com.mydomain.product.web.api.v1.config.Gzip;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,6 +23,7 @@ import java.util.stream.StreamSupport;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @Transactional(ignore = WebApplicationException.class)
+@Gzip
 public class SchoolService
 {
     private static final Logger LOG = LoggerFactory.getLogger(SchoolService.class);

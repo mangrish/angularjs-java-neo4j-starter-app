@@ -28,6 +28,8 @@ public class Department
 
     private Long id;
 
+    private transient String me;
+
     private String name;
 
     @Relationship(type = "DEPARTMENT_MEMBER")
