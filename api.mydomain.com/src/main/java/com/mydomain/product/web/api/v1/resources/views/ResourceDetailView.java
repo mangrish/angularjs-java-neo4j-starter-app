@@ -17,18 +17,18 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @EntityFiltering
-public @interface DepartmentDetailView
+public @interface ResourceDetailView
 {
     /**
      * Factory class for creating instances of {@code ProjectDetailedView} annotation.
      */
-    public static class Factory extends AnnotationLiteral<DepartmentDetailView> implements DepartmentDetailView
+    public static class Factory extends AnnotationLiteral<ResourceDetailView> implements ResourceDetailView
     {
         private Factory()
         {
         }
 
-        public static DepartmentDetailView get()
+        public static ResourceDetailView get()
         {
             return new Factory();
         }

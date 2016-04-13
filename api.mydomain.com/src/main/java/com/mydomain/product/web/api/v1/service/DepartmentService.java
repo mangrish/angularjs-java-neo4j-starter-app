@@ -3,7 +3,7 @@ package com.mydomain.product.web.api.v1.service;
 import com.google.inject.persist.Transactional;
 import com.mydomain.product.domain.Department;
 import com.mydomain.product.web.api.v1.config.Gzip;
-import com.mydomain.product.web.api.v1.resources.views.DepartmentDetailView;
+import com.mydomain.product.web.api.v1.resources.views.ResourceDetailView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,13 +39,13 @@ public class DepartmentService
         Iterable<Department> departments = Department.findAll();
 
         return StreamSupport.stream(departments.spliterator(), false)
-                       .map(com.mydomain.product.web.api.v1.resources.Department::new)
+                       .map(com.mydomain.product.web.api.v1.resources.Department.create)
                        .collect(Collectors.toList());
     }
 
     @GET
     @Path("{id}")
-    @DepartmentDetailView
+    @ResourceDetailView
     public com.mydomain.product.web.api.v1.resources.Department find(@PathParam("id") Long id)
     {
         LOG.trace("Retrieving Department with ID: [{}]", id);
@@ -57,6 +57,6 @@ public class DepartmentService
             throw new NotFoundException("Department not found.");
         }
 
-        return new com.mydomain.product.web.api.v1.resources.Department(department);
+        return com.mydomain.product.web.api.v1.resources.Department.createDetailed.apply(department);
     }
 }

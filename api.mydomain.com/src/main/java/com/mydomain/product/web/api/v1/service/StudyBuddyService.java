@@ -37,7 +37,7 @@ public class StudyBuddyService
         Iterable<StudyBuddy> students = StudyBuddy.findAll();
 
         return StreamSupport.stream(students.spliterator(), false)
-                       .map(com.mydomain.product.web.api.v1.resources.StudyBuddy::new)
+                       .map(com.mydomain.product.web.api.v1.resources.StudyBuddy.create)
                        .collect(Collectors.toList());
     }
 }

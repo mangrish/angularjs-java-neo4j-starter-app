@@ -1,8 +1,9 @@
 package com.mydomain.product.web.api.v1.resources;
 
-import com.mydomain.product.web.api.v1.resources.views.DepartmentDetailView;
+import com.mydomain.product.web.api.v1.resources.views.ResourceDetailView;
 
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -10,51 +11,26 @@ import java.util.stream.Collectors;
  */
 public class Department
 {
+
+    public static Function<com.mydomain.product.domain.Department, Department> create = t -> {
+        Department department = new Department();
+        department.id = t.getId();
+        department.name = t.getName();
+        return department;
+    };
+
+    public static Function<com.mydomain.product.domain.Department, Department> createDetailed = t -> {
+        Department department = new Department();
+        department.id = t.getId();
+        department.name = t.getName();
+        department.subjects = t.getSubjects().stream().map(Subject.create).collect(Collectors.toSet());
+        return department;
+    };
+
     public Long id;
 
     public String name;
 
-    @DepartmentDetailView
+    @ResourceDetailView
     public Set<Subject> subjects;
-
-    public Department()
-    {
-    }
-
-    public Department(com.mydomain.product.domain.Department department)
-    {
-        this.id = department.getId();
-        this.name = department.getName();
-        this.subjects = department.getSubjects().stream().map(Subject::new).collect(Collectors.toSet());
-    }
-
-    public void setId(Long id)
-    {
-        this.id = id;
-    }
-
-    public void setName(String name)
-    {
-        this.name = name;
-    }
-
-    public void setSubjects(Set<Subject> subjects)
-    {
-        this.subjects = subjects;
-    }
-
-    public Long getId()
-    {
-        return id;
-    }
-
-    public String getName()
-    {
-        return name;
-    }
-
-    public Set<Subject> getSubjects()
-    {
-        return subjects;
-    }
 }

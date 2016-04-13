@@ -63,4 +63,18 @@ public class StudyBuddy
     }
 
 
+    public List<Student> getBuddies()
+    {
+        return buddies;
+    }
+
+    public Course getCourse()
+    {
+        return course;
+    }
+
+    public Long getId()
+    {
+        return id;
+    }
 }

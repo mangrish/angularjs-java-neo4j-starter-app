@@ -1,6 +1,9 @@
 package com.mydomain.product.web.api.v1.resources;
 
+import com.mydomain.product.web.api.v1.resources.views.ResourceDetailView;
+
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -8,20 +11,25 @@ import java.util.stream.Collectors;
  */
 public class Teacher
 {
-    public Long id;
+    public static Function<com.mydomain.product.domain.Teacher, Teacher> create = t -> {
+        Teacher teacher = new Teacher();
+        teacher.id = t.getId();
+        teacher.name = t.getName();
+        return teacher;
+    };
 
-    public Set<Subject> subjects;
+    public static Function<com.mydomain.product.domain.Teacher, Teacher> createDetailed = t -> {
+        Teacher teacher = new Teacher();
+        teacher.id = t.getId();
+        teacher.name = t.getName();
+        teacher.subjects = t.getSubjects().stream().map(Subject.create).collect(Collectors.toSet());
+        return teacher;
+    };
+
+    public Long id;
 
     public String name;
 
-    public Teacher()
-    {
-    }
-
-    public Teacher(com.mydomain.product.domain.Teacher teacher)
-    {
-        this.id = teacher.getId();
-        this.name = teacher.getName();
-        this.subjects = teacher.getSubjects().stream().map(Subject::new).collect(Collectors.toSet());
-    }
+    @ResourceDetailView
+    public Set<Subject> subjects;
 }

@@ -1,9 +1,9 @@
 package com.mydomain.product.domain;
 
-import javax.inject.Inject;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 
+import javax.inject.Inject;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,6 +19,11 @@ public class Student
     public static Iterable<Student> findAll()
     {
         return studentRepository.findAll();
+    }
+
+    public static Student findById(Long id)
+    {
+        return studentRepository.findById(id);
     }
 
     private Long id;
@@ -51,5 +56,16 @@ public class Student
     public String getName()
     {
         return name;
+    }
+
+
+    public Set<Enrollment> getEnrollments()
+    {
+        return enrollments;
+    }
+
+    public Set<StudyBuddy> getStudyBuddies()
+    {
+        return studyBuddies;
     }
 }

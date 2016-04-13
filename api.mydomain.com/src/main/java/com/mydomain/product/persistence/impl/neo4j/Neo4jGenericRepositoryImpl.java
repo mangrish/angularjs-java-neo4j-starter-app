@@ -12,7 +12,9 @@ import javax.inject.Inject;
 @Transactional
 class Neo4jGenericRepositoryImpl<T> implements Repository<T>
 {
-    private static final int DEFAULT_QUERY_DEPTH = 1;
+    private static final int DEPTH_LIST = 0;
+
+    private static final int DEPTH_ENTITY = 1;
 
     private final Class<T> type;
 
@@ -27,13 +29,13 @@ class Neo4jGenericRepositoryImpl<T> implements Repository<T>
     @Override
     public Iterable<T> findAll()
     {
-        return session.loadAll(type, DEFAULT_QUERY_DEPTH);
+        return session.loadAll(type, DEPTH_LIST);
     }
 
     @Override
     public T findById(Long id)
     {
-        return session.load(type, id, DEFAULT_QUERY_DEPTH);
+        return session.load(type, id, DEPTH_ENTITY);
     }
 
     @Override
@@ -45,6 +47,6 @@ class Neo4jGenericRepositoryImpl<T> implements Repository<T>
     @Override
     public void save(T entity)
     {
-        session.save(entity);
+        session.save(entity, -1);
     }
 }
