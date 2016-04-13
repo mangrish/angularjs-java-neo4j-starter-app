@@ -1,0 +1,8 @@
+<md-card>
+    <md-list>
+        <md-list-item ng-repeat="subject in vm.subjects" ui-sref="entities.subjects.edit({id:subject.id})">
+            <span>{{subject.name}}</span>
+        </md-list-item>
+    </md-list>
+</md-card>
+

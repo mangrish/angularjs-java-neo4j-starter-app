@@ -80,7 +80,7 @@
             .state('entities.departments.edit', {
                 url: '/:id',
                 views: {
-                    "entities": {
+                    "entities@entities": {
                         templateUrl: 'views/entities/edit_department.html',
                         controller: 'EditDepartmentController as vm'
                     }
@@ -111,7 +111,7 @@
             .state('entities.teachers.edit', {
                 url: '/:id',
                 views: {
-                    "entities": {
+                    "entities@entities": {
                         templateUrl: 'views/entities/edit_teacher.html',
                         controller: 'EditTeacherController as vm'
                     }
@@ -142,7 +142,7 @@
             .state('entities.students.edit', {
                 url: '/:id',
                 views: {
-                    "entities": {
+                    "entities@entities": {
                         templateUrl: 'views/entities/edit_student.html',
                         controller: 'EditStudentController as vm'
                     }
@@ -150,6 +150,37 @@
                 resolve: {
                     student: ['StudentService', '$stateParams', function (StudentService, $stateParams) {
                         return StudentService.find( $stateParams.id);
+                    }]
+                }
+            })
+            .state('entities.subjects', {
+                url: '/subjects',
+                data: {
+                    'selectedEntityTab': 3
+                },
+                views: {
+                    "entities": {
+                        templateUrl: 'views/entities/subjects.html',
+                        controller: 'SubjectsController as vm'
+                    }
+                },
+                resolve: {
+                    subjects: ['SubjectService', function (SubjectService) {
+                        return SubjectService.findAll();
+                    }]
+                }
+            })
+            .state('entities.subjects.edit', {
+                url: '/:id',
+                views: {
+                    "entities@entities": {
+                        templateUrl: 'views/entities/edit_subject.html',
+                        controller: 'EditSubjectController as vm'
+                    }
+                },
+                resolve: {
+                    subject: ['SubjectService', '$stateParams', function (SubjectService, $stateParams) {
+                        return SubjectService.find( $stateParams.id);
                     }]
                 }
             });

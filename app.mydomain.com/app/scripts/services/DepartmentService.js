@@ -11,7 +11,7 @@
             findAll: findAll,
             find: find
         };
-        
+
         function findAll() {
             return Restangular.all('departments').getList();
         }

@@ -1,0 +1,18 @@
+<md-card>
+    <md-card-title>
+        <md-card-title-text>
+            <span class="md-title">{{vm.teacher.name}}</span>
+        </md-card-title-text>
+    </md-card-title>
+    <md-card-content>
+        <dl>
+            <dd>Id:</dd>
+            <dt>{{vm.teacher.id}}</dt>
+        </dl>
+        <div>
+            <p ng-repeat="subject in vm.teacher.subjects" ng-click="entities.subjects.edit({id:subject.id})">{{subject.name}}</p>
+        </div>
+
+    </md-card-content>
+</md-card>
+
