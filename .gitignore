@@ -13,3 +13,5 @@ app.mydomain.com/node_modules
 */.tmp
 app.mydomain.com/.sass-cache
 app.mydomain.com/bower_components
+app.mydomain.com/app/scripts/config.js
+*/*.zip
