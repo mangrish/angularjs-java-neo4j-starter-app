@@ -1,9 +1,7 @@
 package com.mydomain.product.web.api.v1.service;
 
 import com.google.inject.persist.Transactional;
-import com.mydomain.product.domain.Student;
 import com.mydomain.product.domain.StudyBuddy;
-import com.mydomain.product.web.api.v1.config.Gzip;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,7 +22,6 @@ import java.util.stream.StreamSupport;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @Transactional(ignore = WebApplicationException.class)
-@Gzip
 public class StudyBuddyService
 {
     private static final Logger LOG = LoggerFactory.getLogger(StudyBuddyService.class);

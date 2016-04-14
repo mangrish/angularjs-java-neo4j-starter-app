@@ -3,8 +3,10 @@ package com.mydomain.product.web.api.v1.config;
 import org.glassfish.hk2.api.ServiceLocator;
 import org.glassfish.jersey.filter.LoggingFilter;
 import org.glassfish.jersey.jackson.JacksonFeature;
+import org.glassfish.jersey.message.GZipEncoder;
 import org.glassfish.jersey.message.filtering.EntityFilteringFeature;
 import org.glassfish.jersey.server.ResourceConfig;
+import org.glassfish.jersey.server.filter.EncodingFilter;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 
 import javax.inject.Inject;
@@ -27,5 +29,6 @@ public class JerseyResourceConfig extends ResourceConfig
         this.register(CorsResponseFilter.class);
         this.register(JacksonFeature.class);
         this.register(JacksonObjectMapperProvider.class);
+        EncodingFilter.enableFor(this, GZipEncoder.class);
     }
 }

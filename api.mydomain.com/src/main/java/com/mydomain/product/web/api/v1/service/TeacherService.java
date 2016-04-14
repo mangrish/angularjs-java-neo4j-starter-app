@@ -1,9 +1,7 @@
 package com.mydomain.product.web.api.v1.service;
 
 import com.google.inject.persist.Transactional;
-import com.mydomain.product.domain.Department;
 import com.mydomain.product.domain.Teacher;
-import com.mydomain.product.web.api.v1.config.Gzip;
 import com.mydomain.product.web.api.v1.resources.views.ResourceDetailView;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +12,6 @@ import javax.ws.rs.NotFoundException;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import java.util.stream.Collectors;
@@ -27,7 +24,6 @@ import java.util.stream.StreamSupport;
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @Transactional(ignore = WebApplicationException.class)
-@Gzip
 public class TeacherService
 {
     private static final Logger LOG = LoggerFactory.getLogger(TeacherService.class);
